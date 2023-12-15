@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.debug {
+    border-style: dotted;
+    border-color: red;
+    border-width: 2px;
+}
