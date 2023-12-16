@@ -7,10 +7,11 @@ import { API_KEY } from '../../../lib/mapsAPIConfig';
 const myLibraries = ['geometry'];
 
 export default function MapComponent(props: any) {
-  const decodedPath = PolylineDecoder.decode(props.encodedPolyline);
-  const pathAsLatLng = decodedPath.map((coord) => ({ lat: coord[0], lng: coord[1] }));
 
   const [map, setMap] = useState<any>(null);
+
+  const decodedPath = PolylineDecoder.decode(props.encodedPolyline);
+  const pathAsLatLng = decodedPath.map((coord) => ({ lat: coord[0], lng: coord[1] }));
 
   const onLoad = (map: any) => {
     setMap(map);
@@ -33,7 +34,7 @@ export default function MapComponent(props: any) {
 
   const mapContainerStyle = {
     width: '100%',
-    height: '400px',
+    height: '100%',
   };
 
   const startPosition = {

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from "next/link"
 import getRoute from "../../../lib/mapsSource";
 import MapComponent from "./customMap";
+import RouteForm from './routeForm';
 
 /*
 const requestData = {
@@ -25,7 +26,7 @@ const requestData = {
   units: 'METRIC',
 };
 */
-
+/*
 const requestData = {
   origin: {
     "address": "T-Centralen, 111 20 Stockholm",
@@ -44,18 +45,32 @@ const requestData = {
   languageCode: 'en-US',
   units: 'METRIC',
 };
+*/
 
 export default function RoutePage() {
 
-  const [buttonPressed, setButtonPressed] = useState(false);
   const [apiResponse, setApiResponse] = useState(null);
   
-  async function onDoApiThing() {
+  async function queryApi(routeData) {
+
+    let requestData = {
+      origin: {
+        "address": routeData.start,
+      },
+      destination: {
+        "address": routeData.destination,
+      },
+      travelMode: 'DRIVE',
+      routingPreference: "TRAFFIC_AWARE",
+
+      languageCode: 'en-US',
+      units: 'METRIC',
+    };
+
     const responseData = getRoute(requestData);
     const response = await responseData;
 
     setApiResponse(response);
-    setButtonPressed(true);
 
     console.log(response);
     // console.log(response.routes[0].polyline.encodedPolyline)
@@ -64,15 +79,11 @@ export default function RoutePage() {
   return (
     <>
       <h1 className="text-2xl font-bold">Route Page</h1>
-      <Link href="/">Link to Home Page</Link>
-      <p></p>
-      <button
-      onClick={onDoApiThing}
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Click to do API thing
-      </button>
-      {buttonPressed && apiResponse && (
+      <p><Link href="/">Link to Home Page</Link></p>
+      <RouteForm onSubmit={queryApi}/>
+      {apiResponse && (
         <div className="debug flex w-full justify-center">
-          <div className="debug w-1/2">
+          <div className="debug w-1/2 min-h-[450px] max-h-full">
             <MapComponent encodedPolyline={apiResponse.routes[0].polyline.encodedPolyline} />
           </div>
         </div>
