@@ -1,10 +1,12 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link"
 import getRoute from "../../../lib/mapsSource";
 import MapComponent from "./customMap";
 import RouteForm from './routeForm';
+import { API_KEY } from '../../../lib/mapsAPIConfig';
+import { Wrapper } from '@googlemaps/react-wrapper';
 
 /*
 const requestData = {
@@ -47,6 +49,7 @@ const requestData = {
 };
 */
 
+
 export default function RoutePage() {
 
   const [apiResponse, setApiResponse] = useState(null);
@@ -83,8 +86,10 @@ export default function RoutePage() {
       <RouteForm onSubmit={queryApi}/>
       {apiResponse && (
         <div className="debug flex w-full justify-center">
-          <div className="debug w-1/2 min-h-[450px] max-h-full">
-            <MapComponent encodedPolyline={apiResponse.routes[0].polyline.encodedPolyline} />
+          <div className="debug w-full sm:w-2/3 min-h-[450px]">
+            <Wrapper apiKey={API_KEY}>
+              <MapComponent encodedPolyline={apiResponse.routes[0].polyline.encodedPolyline} />
+            </Wrapper>
           </div>
         </div>
       )}

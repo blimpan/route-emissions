@@ -43,24 +43,20 @@ export default function MapComponent(props: any) {
   };
 
   return (
-    <LoadScript 
-      googleMapsApiKey={API_KEY}
-      libraries={myLibraries as any}> {/* moved expression outside of function to get rid of warning in browser */}
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={20}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        <Polyline
-          path={pathAsLatLng}
-          options={{
-            strokeColor: '#FF0000',
-            strokeOpacity: 1,
-            strokeWeight: 2,
-          }}
-        />
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      zoom={20}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      <Polyline
+        path={pathAsLatLng}
+        options={{
+          strokeColor: '#FF0000',
+          strokeOpacity: 1,
+          strokeWeight: 2,
+        }}
+      />
+    </GoogleMap>
   );
 }
