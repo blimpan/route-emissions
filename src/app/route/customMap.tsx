@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, Polyline, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, Polyline } from '@react-google-maps/api';
 import PolylineDecoder from 'polyline';
-import { API_KEY } from '../../../lib/mapsAPIConfig';
-
-// Define libraries outside of the component
-const myLibraries = ['geometry'];
 
 export default function MapComponent(props: any) {
 

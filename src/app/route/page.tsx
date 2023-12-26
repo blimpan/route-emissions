@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from "next/link"
-import getRoute from "../../../lib/mapsSource";
 import MapComponent from "./customMap";
 import RouteForm from './routeForm';
-import { API_KEY } from '../../../lib/mapsAPIConfig';
+import { API_KEY } from '../mapsAPIConfig';
 import { Wrapper } from '@googlemaps/react-wrapper';
+import { routeModel } from '../routeModel';
+
 
 /*
 const requestData = {
@@ -54,7 +55,7 @@ export default function RoutePage() {
 
   const [apiResponse, setApiResponse] = useState(null);
   
-  async function queryApi(routeData) {
+  async function queryApi(routeData) { // called via props.onSubmit in routeForm
 
     let requestData = {
       origin: {
@@ -70,13 +71,11 @@ export default function RoutePage() {
       units: 'METRIC',
     };
 
-    const responseData = getRoute(requestData);
-    const response = await responseData;
 
-    setApiResponse(response);
+    const routeObj = await routeModel.getRoute(requestData)
 
-    console.log(response);
-    // console.log(response.routes[0].polyline.encodedPolyline)
+    setApiResponse(routeObj);
+
   }
 
   return (
@@ -88,7 +87,7 @@ export default function RoutePage() {
         <div className="debug flex w-full justify-center">
           <div className="debug w-full sm:w-2/3 min-h-[450px]">
             <Wrapper apiKey={API_KEY}>
-              <MapComponent encodedPolyline={apiResponse.routes[0].polyline.encodedPolyline} />
+              <MapComponent encodedPolyline={apiResponse.polyline.encodedPolyline} />
             </Wrapper>
           </div>
         </div>
