@@ -9,89 +9,63 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 import { routeModel } from '../routeModel';
 
 
-/*
-const requestData = {
-  origin: {
-    "address": "KTH Royal Institute of Technology, Brinellvägen 8, 114 28 Stockholm",
-  },
-  destination: {
-    "address": "Karolinska Institute, Solnavägen 1, 171 77 Solna",
-  },
-  travelMode: 'WALK',
-  
-  // routingPreference: "TRAFFIC_AWARE",
-  // routeModifiers: {
-  //   "avoidHighways": false
-  // },
-  
-
-  languageCode: 'en-US',
-  units: 'METRIC',
-};
-*/
-/*
-const requestData = {
-  origin: {
-    "address": "T-Centralen, 111 20 Stockholm",
-  },
-  destination: {
-    "address": "Bangatan 1, 222 21 Lund",
-  },
-  travelMode: 'DRIVE',
-  
-  // routingPreference: "TRAFFIC_AWARE",
-  // routeModifiers: {
-  //   "avoidHighways": false
-  // },
-  
-
-  languageCode: 'en-US',
-  units: 'METRIC',
-};
-*/
-
-
 export default function RoutePage() {
 
-  const [apiResponse, setApiResponse] = useState(null);
+  const [apiResponse, setApiResponse] = useState<any>(null);
+  const [showForm, setShowForm] = useState<boolean>(true);
   
-  async function queryApi(routeData) { // called via props.onSubmit in routeForm
+  async function queryApi(formData) { // called via props.onSubmit in routeForm
 
     let requestData = {
       origin: {
-        "address": routeData.start,
+        "address": formData.start,
       },
       destination: {
-        "address": routeData.destination,
+        "address": formData.destination,
       },
-      travelMode: 'DRIVE',
-      routingPreference: "TRAFFIC_AWARE",
-
-      languageCode: 'en-US',
-      units: 'METRIC',
     };
 
+    await routeModel.getRoute(requestData)
+    if (routeModel.atleastOne) {
+      setApiResponse(routeModel.getPolylines());
+      setShowForm(false); 
+    }
+  }
 
-    const routeObj = await routeModel.getRoute(requestData)
-
-    setApiResponse(routeObj);
-
+  function onNewRoute() {
+    setShowForm(true);
+    setApiResponse(null);
   }
 
   return (
-    <>
-      <h1 className="text-2xl font-bold">Route Page</h1>
-      <p><Link href="/">Link to Home Page</Link></p>
-      <RouteForm onSubmit={queryApi}/>
+    <div className='flex flex-col w-full h-screen'>
+      <div className="debug flex flex-row gap-3 h-14">
+        <h1 className="text-2xl font-bold">Route Page</h1>
+        <p><Link href="/">Link to Home Page</Link></p>
+      </div>
+      {showForm && (
+        <RouteForm onSubmit={queryApi}/>
+      )}
       {apiResponse && (
-        <div className="debug flex w-full justify-center">
-          <div className="debug w-full sm:w-2/3 min-h-[450px]">
+        <div className="debug flex flex-col w-full h-full">
+          <div className="debug flex w-full h-2/5">
             <Wrapper apiKey={API_KEY}>
-              <MapComponent encodedPolyline={apiResponse.polyline.encodedPolyline} />
+                <MapComponent encodedPolylines={apiResponse} />
             </Wrapper>
+          </div>
+          <div className="debug flex">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab delectus nobis facere omnis possimus corrupti quo itaque cum illo nesciunt, perferendis obcaecati, quis porro, minus veniam qui sed repudiandae culpa.</p>
+          </div>
+          <div className='debug flex justify-center'>
+            <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl"
+            onClick={onNewRoute}
+            >
+              New route
+            </button>
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
