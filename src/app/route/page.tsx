@@ -7,7 +7,7 @@ import RouteForm from './routeForm';
 import { API_KEY } from '../mapsAPIConfig';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import { routeModel } from '../routeModel';
-
+import GraphComponent from './emissionsGraph';
 
 export default function RoutePage() {
 
@@ -56,6 +56,7 @@ export default function RoutePage() {
           <div className="debug flex">
             <p>This route by car would generate {routeModel.getEmissions("DRIVE")} grams of CO2e.</p>
           </div>
+          <GraphComponent/>
           <div className='debug flex justify-center align-bottom'>
             <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl"

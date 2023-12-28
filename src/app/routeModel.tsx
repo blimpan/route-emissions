@@ -49,14 +49,37 @@ export const routeModel = {
   routeObjects: [transitRoute, driveRoute, bicycleRoute, walkRoute],
 
   /**
+   * Returns all the route objects with a truthy .exists attribute.
+   * @returns {Array} Array of route objects.
+   */
+  getExistingRoutes: function() {
+    const reducedArr = this.routeObjects.reduce((accumulator, currentObj) => {
+      if (currentObj.exists) {
+        accumulator.push(currentObj);
+      }
+      return accumulator
+    }, []);
+    return [...reducedArr];
+  },
+
+  /**
+   * Returns a sorted array of the existing routes with highest emissions first, lowest last. 
+   * @returns {Array} Array of route objects, highest emissions first, lowest last.
+   */
+  getRoutesByEmission: function() {
+    const existingRoutes = this.getExistingRoutes();
+    existingRoutes.sort((routeA, routeB) => this.getEmissions(routeB.travelMode) - this.getEmissions(routeA.travelMode));
+    return existingRoutes;
+  },
+
+  /**
    * Calculates the estimated amount of CO2e the route would generate for the given mode of transportation.
    * @param {string} modeOfTransport A string. Either "TRANSIT" | "DRIVE" | "BICYCLE" | "WALK".
    * @returns {number} An amount of CO2e in grams.
    */
-  getEmissions: function(modeOfTransport:TransportationMode): number {
+  getEmissions: function(modeOfTransport:string): number {
 
     const routeObj = this.getRouteObject(modeOfTransport);
-    console.log("Object in getEmissions: " + routeObj)
 
     switch (modeOfTransport) {
       case "TRANSIT":
@@ -72,10 +95,10 @@ export const routeModel = {
 
   /**
    * Goes through the route objects and returns the first one with a matching mode of transportation.
-   * @param {TransportationMode} modeOfTransport A string. Either 'TRANSIT' | 'DRIVE' | 'BICYCLE' | 'WALK'.
+   * @param {string} modeOfTransport A string. Either 'TRANSIT' | 'DRIVE' | 'BICYCLE' | 'WALK'.
    * @returns {object} A route object.
    */
-  getRouteObject: function (modeOfTransport:TransportationMode): object {
+  getRouteObject: function (modeOfTransport:string): object {
     const routeObj = this.routeObjects.find(obj => obj.travelMode === modeOfTransport);
 
     if (routeObj) {
@@ -143,7 +166,7 @@ export const routeModel = {
       }
     }));
     if (!this.atleastOne) {
-      alert("No possible route exists between these two locations! Go somewhere else.")
+      alert("Something went wrong! Try going somewhere else. I've heard Siberia is nice this time of year.")
     } else {
       this.origin = requestData.origin;
       this.destination = requestData.destination;
