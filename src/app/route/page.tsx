@@ -54,9 +54,9 @@ export default function RoutePage() {
             </Wrapper>
           </div>
           <div className="debug flex">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab delectus nobis facere omnis possimus corrupti quo itaque cum illo nesciunt, perferendis obcaecati, quis porro, minus veniam qui sed repudiandae culpa.</p>
+            <p>This route by car would generate {routeModel.getEmissions("DRIVE")} grams of CO2e.</p>
           </div>
-          <div className='debug flex justify-center'>
+          <div className='debug flex justify-center align-bottom'>
             <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl"
             onClick={onNewRoute}

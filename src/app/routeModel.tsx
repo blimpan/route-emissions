@@ -2,36 +2,44 @@ import { API_KEY } from "./mapsAPIConfig";
 
 const API_URL = "https://routes.googleapis.com/directions/v2:computeRoutes";
 
-
 let transitRoute = {
   travelMode: "TRANSIT",
-  distanceM: null,
-  durationS: null,
-  polyline: null,
+  distanceM: 0,
+  durationS: 0,
+  polyline: "",
   exists: false,
 };
 let driveRoute = {
   travelMode: "DRIVE",
-  distanceM: null,
-  durationS: null,
-  polyline: null,
+  distanceM: 0,
+  durationS: 0,
+  polyline: "",
   exists: false,
 };
 let bicycleRoute = {
   travelMode: "BICYCLE",
-  distanceM: null,
-  durationS: null,
-  polyline: null,
+  distanceM: 0,
+  durationS: 0,
+  polyline: "",
   exists: false,
 };
 let walkRoute = {
   travelMode: "WALK",
-  distanceM: null,
-  durationS: null,
-  polyline: null,
+  distanceM: 0,
+  durationS: 0,
+  polyline: "",
   exists: false,
 };
 
+type TransportationMode = "TRANSIT" | "DRIVE" | "BICYCLE" | "WALK";
+
+const CO2_BUS_PER_KM_IN_G = 25;
+const CO2_CAR_PER_KM_IN_G = 167;
+const CO2_BIKE_PER_KM_IN_G = 140;
+const CO2_WALK_PER_KM_IN_G = 260;
+
+// The estimated number of grams CO2 or CO2e per traveled kilometer by a typical passenger vehicle.
+// Source: https://klimatsmartsemester.se/transportmedelsberakningar
 
 export const routeModel = {
   origin: null,
@@ -40,7 +48,50 @@ export const routeModel = {
 
   routeObjects: [transitRoute, driveRoute, bicycleRoute, walkRoute],
 
-  getPolylines() {
+  /**
+   * Calculates the estimated amount of CO2e the route would generate for the given mode of transportation.
+   * @param {string} modeOfTransport A string. Either "TRANSIT" | "DRIVE" | "BICYCLE" | "WALK".
+   * @returns {number} An amount of CO2e in grams.
+   */
+  getEmissions: function(modeOfTransport:TransportationMode): number {
+
+    const routeObj = this.getRouteObject(modeOfTransport);
+    console.log("Object in getEmissions: " + routeObj)
+
+    switch (modeOfTransport) {
+      case "TRANSIT":
+        return Math.round((routeObj.distanceM / 1000) * CO2_BUS_PER_KM_IN_G);
+      case "DRIVE":
+        return Math.round((routeObj.distanceM / 1000) * CO2_CAR_PER_KM_IN_G);
+      case "BICYCLE":
+        return Math.round((routeObj.distanceM / 1000) * CO2_BIKE_PER_KM_IN_G);
+      case "WALK":
+        return Math.round((routeObj.distanceM / 1000) * CO2_WALK_PER_KM_IN_G);
+    }
+  },
+
+  /**
+   * Goes through the route objects and returns the first one with a matching mode of transportation.
+   * @param {TransportationMode} modeOfTransport A string. Either 'TRANSIT' | 'DRIVE' | 'BICYCLE' | 'WALK'.
+   * @returns {object} A route object.
+   */
+  getRouteObject: function (modeOfTransport:TransportationMode): object {
+    const routeObj = this.routeObjects.find(obj => obj.travelMode === modeOfTransport);
+
+    if (routeObj) {
+      return routeObj;
+    }
+    // If we somehow reach this part of the code, something went wrong.
+    console.error("Something went wrong when getting a route object")
+    return null
+  },
+
+
+  /**
+   * Creates and returns an array of all the existing routeObjects' encoded polylines.
+   * @returns {Array} An array of encoded polylines.
+   */
+  getPolylines(): Array<any> {
     return this.routeObjects.reduce((accumulator, currentObj) => {
       if (currentObj.exists) {  // Makes sure that we don't get the polyline of any non-existing route
         accumulator.push(currentObj.polyline);
@@ -49,14 +100,15 @@ export const routeModel = {
     }, []);
   },
 
+
+  /**
+   * Fetches the route(s) for all modes of transportation between the origin and destination using Google Maps API.
+   * Updates the attributes of the model to reflect new data.
+   * @param {object} requestData 
+   */
   getRoute: async function(requestData) {
 
     this.atleastOne = false;
-    this.origin = requestData.origin;
-    this.destination = requestData.destination;
-
-    requestData.languageCode = "en-US"; // Add language code and units attribute to already existing object
-    requestData.units = "METRIC";
 
     await Promise.all(this.routeObjects.map(async (routeObj) => {  // Process all objects in parallel (according to some github post I found)
       try {
@@ -75,7 +127,7 @@ export const routeModel = {
     
         const responseObj = await response.json();
 
-        console.log(responseObj.routes[0])
+        // console.log(responseObj.routes[0])
 
         routeObj.distanceM = responseObj.routes[0].distanceMeters;
         routeObj.durationS = responseObj.routes[0].duration;
@@ -92,6 +144,12 @@ export const routeModel = {
     }));
     if (!this.atleastOne) {
       alert("No possible route exists between these two locations! Go somewhere else.")
+    } else {
+      this.origin = requestData.origin;
+      this.destination = requestData.destination;
+
+      requestData.languageCode = "en-US"; // Add language code and units attribute to already existing object
+      requestData.units = "METRIC";
     }
   }
 }
