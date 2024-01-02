@@ -31,8 +31,6 @@ let walkRoute = {
   exists: false,
 };
 
-type TransportationMode = "TRANSIT" | "DRIVE" | "BICYCLE" | "WALK";
-
 const CO2_BUS_PER_KM_IN_G = 25;
 const CO2_CAR_PER_KM_IN_G = 167;
 const CO2_BIKE_PER_KM_IN_G = 140;

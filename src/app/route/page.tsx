@@ -7,7 +7,7 @@ import RouteForm from './routeForm';
 import { API_KEY } from '../mapsAPIConfig';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import { routeModel } from '../routeModel';
-import GraphComponent from './emissionsGraph';
+import EmissionsInfo from './emissionsInfo';
 
 export default function RoutePage() {
 
@@ -39,7 +39,7 @@ export default function RoutePage() {
 
   return (
     <div className='flex flex-col w-full h-screen'>
-      <div className="debug flex flex-row gap-3 h-14">
+      <div className="flex flex-row gap-3 h-14">
         <h1 className="text-2xl font-bold">Route Page</h1>
         <p><Link href="/">Link to Home Page</Link></p>
       </div>
@@ -47,17 +47,16 @@ export default function RoutePage() {
         <RouteForm onSubmit={queryApi}/>
       )}
       {apiResponse && (
-        <div className="debug flex flex-col w-full h-full">
-          <div className="debug flex w-full h-2/5">
+        <div className="flex flex-col w-full h-full">
+          <div className="flex w-full h-1/3 max-h-[250px]">
             <Wrapper apiKey={API_KEY}>
                 <MapComponent encodedPolylines={apiResponse} />
             </Wrapper>
           </div>
-          <div className="debug flex">
-            <p>This route by car would generate {routeModel.getEmissions("DRIVE")} grams of CO2e.</p>
+          <div className='flex w-full px-2 pt-2'>
+            <EmissionsInfo/>
           </div>
-          <GraphComponent/>
-          <div className='debug flex justify-center align-bottom'>
+          <div className='flex justify-center mt-2'>
             <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl"
             onClick={onNewRoute}

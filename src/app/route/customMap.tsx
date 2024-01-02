@@ -32,7 +32,7 @@ export default function MapComponent(props: any) {
   }
 
   const polylines = props.encodedPolylines;
-  console.log("Number of polylines to draw: " + polylines.length)
+  // console.log("Number of polylines to draw: " + polylines.length)
 
   const [map, setMap] = useState<any>(null);
   const decodedPaths = [];
@@ -80,6 +80,13 @@ export default function MapComponent(props: any) {
     lng: decodedPaths[0][decodedPaths[0].length - 1][1],
   };
 
+  const mapOptions = {
+    fullscreenControl: false, // Hide or show the fullscreen control
+    streetViewControl: false, // Hide or show the street view control
+    mapTypeControl: false, // Hide or show the map type control (satellite/map switch)
+    zoomControl: false, // Hide or show the zoom control
+  };
+
   function polylineRendering(pathAsCoords:any, index:number) {
     return (
       <Polyline
@@ -96,6 +103,7 @@ export default function MapComponent(props: any) {
         zoom={20}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        options={mapOptions}
       >
         {pathsAsCoords.map(polylineRendering)}
 
