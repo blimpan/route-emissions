@@ -1,3 +1,4 @@
+import NavBar from "./navbar"
 import "./styles.css"
 
 export const metadata = {
@@ -12,7 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-w-[320px] min-h-[650px]">
+      <body className="min-w-[320px] min-h-[650px] bg-off-white">
+        <NavBar/>
         {children}
       </body>
     </html>
