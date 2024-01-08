@@ -38,7 +38,7 @@ export default function NavSidebar(props:any) {
 
         return (
             <div className={`flex justify-center place-items-center w-[50px] h-[50px] ${isOnPage ? 'bg-darker-almond' : ''}`} key={linkObject.alt}>
-            <Link href={linkObject.path}>
+            <Link href={linkObject.path} onClick={props.onNavigation}>
                 <Image
                 src={linkObject.icon}
                 width={40}

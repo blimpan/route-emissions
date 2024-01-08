@@ -16,14 +16,14 @@ export default function NavBar(props:any) {
     }
     
     return (
-        <div className="debug flex w-full flex-row justify-between items-center h-[50px]">
-            <div className="debug flex">
-                <h1 className="text-xl text-british-green">
+        <div className="flex w-full flex-row justify-between items-center h-[50px]">
+            <div className="flex">
+                <h1 className="text-xl text-british-green pl-2">
                     eco routes</h1>
             </div>
-            <div className="debug flex">
+            <div className="flex">
                 <button
-                className="debug w-[40px] h-[40px]"
+                className="w-[40px] h-[40px]"
                 onClick={onBurgerClick}
                 >
                     <img
@@ -35,7 +35,7 @@ export default function NavBar(props:any) {
                 </button>
             </div>
             {isMenuOpen && (
-                <NavSidebar/>
+                <NavSidebar onNavigation={onBurgerClick}/>
             )}
         </div>
     );

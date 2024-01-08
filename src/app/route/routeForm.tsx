@@ -37,9 +37,7 @@ const RouteForm = (props) => {
     const customRadioBtn = (mode:string, icon:string) => (
         <label
           key={mode}
-          className={`cursor-pointer border rounded-2xl p-0.5 hover:shadow-md ${
-            travelMode == mode ? 'bg-gray-300' : ''
-          }`}
+          className={`cursor-pointer border rounded-2xl p-0.5 hover:shadow-lg ${travelMode == mode ? 'bg-gray-300' : ''}`}
         >
           <input
             type="radio"
