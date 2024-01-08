@@ -39,10 +39,6 @@ export default function RoutePage() {
 
   return (
     <div className='flex flex-col w-full h-screen'>
-      <div className="flex flex-row gap-3 h-14">
-        <h1 className="text-2xl font-bold">Route Page</h1>
-        <p><Link href="/">Link to Home Page</Link></p>
-      </div>
       {showForm && (
         <RouteForm onSubmit={queryApi}/>
       )}
@@ -58,7 +54,8 @@ export default function RoutePage() {
           </div>
           <div className='flex justify-center mt-2'>
             <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl"
+            className="flex border border-british-green text-british-green font-semibold bg-off-white w-[140px] h-[40px] rounded-2xl drop-shadow-lg justify-center items-center
+            hover:drop-shadow-custom-button hover:translate-y-[-1px] transition-transform"
             onClick={onNewRoute}
             >
               New route

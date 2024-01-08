@@ -37,7 +37,7 @@ const RouteForm = (props) => {
     const customRadioBtn = (mode:string, icon:string) => (
         <label
           key={mode}
-          className={`cursor-pointer border rounded-2xl p-0.5 hover:shadow-lg ${travelMode == mode ? 'bg-gray-300' : ''}`}
+          className={`cursor-pointer border border-caput-brown drop-shadow-xl rounded-xl p-0.5 hover:drop-shadow-custom-button hover:translate-y-[-1px] transition-transform ${travelMode == mode ? 'bg-caput-brown' : 'bg-off-white'}`}
         >
           <input
             type="radio"
@@ -55,11 +55,11 @@ const RouteForm = (props) => {
       );
     
     return (
-        <div className="flex flex-col w-full min-w-[320px]">
+        <div className="flex flex-col w-full mt-3">
             <div className="flex flex-col sm:flex-row sm:justify-center">
                 <div className="flex flex-col items-center sm:w-1/2 p-1">
                     <input
-                        className="border shadow rounded-xl border-gray-400 h-8 w-10/12 max-w-sm pl-1"
+                        className="flex bg-almond text-black placeholder:text-gray-800 border drop-shadow-lg rounded-xl border-caput-brown h-8 w-10/12 max-w-sm pl-1"
                         type="text"
                         id="startingAddress" 
                         value={startAddress}
@@ -69,7 +69,7 @@ const RouteForm = (props) => {
                 </div>
                 <div className="flex flex-col items-center sm:w-1/2 p-1">
                     <input
-                        className="border shadow rounded-xl border-gray-400 h-8 w-10/12 max-w-sm pl-1"
+                        className="flex bg-almond text-black placeholder:text-gray-800 border drop-shadow-lg rounded-xl border-caput-brown h-8 w-10/12 max-w-sm pl-1"
                         type="text"
                         id="destinationAddress" 
                         value={destinationAddress}
@@ -78,7 +78,7 @@ const RouteForm = (props) => {
                     />
                 </div>
             </div>
-            <div className="flex w-full justify-center">
+            <div className="flex w-full justify-center mt-3">
                 <div className="flex flex-row w-10/12 max-w-sm justify-between p-1">
                     {customRadioBtn("TRANSIT", busIcon)}
                     {customRadioBtn("DRIVE", carIcon)}
@@ -86,11 +86,12 @@ const RouteForm = (props) => {
                     {customRadioBtn("WALK", walkIcon)}
                 </div>
             </div>
-            <div className="flex justify-center p-1">
+            <div className="flex justify-center p-1 mt-3">
                 <button
                 onClick={onSubmitClicked}
                 disabled={destinationAddress == "" || startAddress == "" || travelMode == ""}
-                className="bg-blue-500 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-2xl">
+                className="flex border border-british-green text-british-green font-semibold bg-off-white w-[140px] h-[40px] rounded-2xl drop-shadow-lg justify-center items-center
+              hover:drop-shadow-custom-button hover:translate-y-[-1px] transition-transform disabled:opacity-50 disabled:cursor-not-allowed">    
                 Get route
                 </button>
             </div>

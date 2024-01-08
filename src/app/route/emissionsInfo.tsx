@@ -38,7 +38,7 @@ export default function EmissionsInfo(props:any) {
         const emissionsInTrees = (highestEmissions / CO2_ABSORPTION_PER_M_IN_G).toFixed(1)
 
         return (
-            <p>This route <strong>{vehicleInSentence}</strong> would generate <strong>{(highestEmissions/1000).toFixed(1)} kg</strong> of CO2e.
+            <p className="text-british-green">This route <strong>{vehicleInSentence}</strong> would generate <strong>{(highestEmissions/1000).toFixed(1)} kg</strong> of CO2e.
             That's equivalent to the monthly carbon offset of <strong>{emissionsInTrees} trees</strong>.
             </p>
         );
@@ -82,7 +82,7 @@ export default function EmissionsInfo(props:any) {
                 />
             </div>
             <div className="flex grow h-full items-center"> {/* We put this div around to stop bar from pushing aside icon and text */}
-                <div style={{ width: barAdjustedWidth }} className="flex h-4/5 rounded-md border border-black bg-gray-700"></div>
+                <div style={{ width: barAdjustedWidth }} className="flex h-4/5 rounded-md bg-caput-brown"></div>
             </div>
 
             <p className="w-12 text-xs text-center mx-1">{emissionsText}</p>
@@ -92,10 +92,10 @@ export default function EmissionsInfo(props:any) {
 
     return (
         <div className="flex flex-col w-full">
-            <div className="flex p-1 rounded-lg bg-gray-200">
+            <div className="flex p-1 rounded-lg bg-dune">
                 {generateDescriptionText()}
             </div>
-            <div className="flex grow max-h-min mt-2 rounded-lg bg-gray-200">
+            <div className="flex grow max-h-min mt-2 rounded-lg bg-dune">
                 <div className="flex flex-col w-full max-h-min">
                     {routeModel.getRoutesByEmission().map(renderModeRowCB)}
                 </div>
