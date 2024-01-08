@@ -16,6 +16,9 @@ module.exports = {
         "british-green": "#004423",
         "prussian-blue": "#0F3350",
       },
+      dropShadow: {
+        'custom-button': '0 5px 2px rgba(0, 0, 0, 0.3)',
+      },
     },
   },
   plugins: [],

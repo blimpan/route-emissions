@@ -7,3 +7,7 @@
     border-color: red;
     border-width: 2px;
 }
+
+.custom-obj-pos {
+    object-position: 50% 20%;
+}
