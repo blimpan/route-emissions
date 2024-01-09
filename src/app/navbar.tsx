@@ -16,10 +16,10 @@ export default function NavBar(props:any) {
     }
     
     return (
-        <div className="flex w-full flex-row justify-between items-center h-[50px]">
+        <div className="sticky border-b border-black top-0 flex w-full flex-row bg-off-white z-10 justify-between items-center h-[50px]">
             <div className="flex">
                 <h1 className="text-xl text-british-green pl-2">
-                    eco routes</h1>
+                    <a href="/">eco routes</a></h1>
             </div>
             <div className="flex">
                 <button
