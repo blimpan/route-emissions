@@ -4,9 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Link from "next/link"
 import MapComponent from "./customMap";
 import RouteForm from './routeForm';
-import { API_KEY } from '../mapsAPIConfig';
 import { Wrapper } from '@googlemaps/react-wrapper';
-import { routeModel } from '../routeModel';
+import { routeModel, API_KEY } from '../routeModel';
 import EmissionsInfo from './emissionsInfo';
 
 export default function RoutePage() {
