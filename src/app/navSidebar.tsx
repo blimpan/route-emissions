@@ -21,7 +21,7 @@ const linkObjects = [
         alt: "Map icon",
     },
     {
-        path: "/aboutme",
+        path: "/how-it-works",
         icon: documentsIcon,
         alt: "Documents icon",
     },
