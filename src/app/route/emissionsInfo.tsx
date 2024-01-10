@@ -39,7 +39,7 @@ export default function EmissionsInfo(props:any) {
 
         return (
             <p className="text-british-green">This route <strong>{vehicleInSentence}</strong> would generate <strong>{(highestEmissions/1000).toFixed(1)} kg</strong> of CO2e.
-            That's equivalent to the monthly carbon offset of <strong>{emissionsInTrees} trees</strong>.
+            That&apos;s equivalent to the monthly carbon offset of <strong>{emissionsInTrees} trees</strong>.
             </p>
         );
 
