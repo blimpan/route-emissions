@@ -17,6 +17,7 @@ export default function RootLayout({
       <body className="min-w-[320px] min-h-[650px] bg-off-white">
         <NavBar/>
         {children}
+        <SpeedInsights/>
       </body>
     </html>
   )
