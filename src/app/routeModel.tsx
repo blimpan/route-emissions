@@ -1,7 +1,12 @@
+let API_KEY = "";
+try {
+  API_KEY = process.env.ROUTES_API_KEY;
+  console.log("Successfully imported API key from Vercel environment!");
 
-import { LOCAL_API_KEY } from "./mapsAPIConfig";
+} catch (error) {
+  console.error("Could not import API key from Vercel environment.")
+}
 
-const API_KEY = LOCAL_API_KEY;
 export { API_KEY };
 
 const API_URL = "https://routes.googleapis.com/directions/v2:computeRoutes";
