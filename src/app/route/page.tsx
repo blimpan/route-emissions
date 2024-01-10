@@ -5,7 +5,7 @@ import Link from "next/link"
 import MapComponent from "./customMap";
 import RouteForm from './routeForm';
 import { Wrapper } from '@googlemaps/react-wrapper';
-import { routeModel, API_KEY } from '../routeModel';
+import { routeModel } from '../routeModel';
 import EmissionsInfo from './emissionsInfo';
 
 export default function RoutePage() {
@@ -44,7 +44,7 @@ export default function RoutePage() {
       {apiResponse && (
         <div className="flex flex-col w-full h-full">
           <div className="flex w-full h-1/3 max-h-[250px]">
-            <Wrapper apiKey={API_KEY}>
+            <Wrapper apiKey={process.env.NEXT_PUBLIC_ROUTES_API_KEY}>
                 <MapComponent encodedPolylines={apiResponse} />
             </Wrapper>
           </div>

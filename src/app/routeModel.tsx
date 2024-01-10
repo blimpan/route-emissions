@@ -1,8 +1,3 @@
-const API_KEY = process.env.NEXT_PUBLIC_ROUTES_API_KEY;
-console.log("KEY: " + API_KEY);
-
-export { API_KEY };
-
 const API_URL = "https://routes.googleapis.com/directions/v2:computeRoutes";
 
 let transitRoute = {
@@ -139,6 +134,7 @@ export const routeModel = {
 
         requestData.travelMode = routeObj.travelMode;
 
+        /*
         const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
@@ -150,9 +146,18 @@ export const routeModel = {
         });
     
         const responseObj = await response.json();
+        */
 
-        // console.log(responseObj.routes[0])
+        const res = await fetch('/api/gmaps-route', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        });
 
+        const responseObj = await res.json();
+    
         routeObj.distanceM = responseObj.routes[0].distanceMeters;
         routeObj.durationS = responseObj.routes[0].duration;
         routeObj.polyline = responseObj.routes[0].polyline.encodedPolyline;
