@@ -41,7 +41,7 @@ export default function Home() {
             <h1 className="text-british-green text-2xl font-semibold">
                 How eco-friendly is your transportation?</h1>
             <h2 className="text-british-green text-base pt-5">
-              Calculate and compare CO2 emissions from taking the bus, driving, walking and biking.</h2>
+              Calculate and compare CO2e emissions from taking the bus, driving, walking and biking.</h2>
           </div>
 
           <div className="flex flex-col justify-around items-center w-1/4">
@@ -66,7 +66,7 @@ export default function Home() {
             <p className="text-british-green text-[15px] p-2">Eco Routes is a project I made in my spare time based on an idea I got during a sustainability course.</p>
           </div>
           <div className="flex m-2 bg-dune rounded-2xl">
-            <p className="text-british-green text-[15px] p-2">It uses emissions data from various sources (found <a href="/aboutme" className="underline">here</a>) and a Google Maps API to calculate the estimated amount of CO2 a route between two places would generate.</p>
+            <p className="text-british-green text-[15px] p-2">It uses emissions data from various sources (found <a href="/how-it-works" className="underline">here</a>) and a Google Maps API to calculate the estimated amount of CO2 a route between two places would generate.</p>
           </div>
         </div>
 
@@ -75,10 +75,10 @@ export default function Home() {
         </h2>
         <div className="flex flex-col w-full"> {/* About me */}
           <div className="flex min-h-[200px] relative">
-            <Image className="custom-obj-pos" src={meOnBoat} fill={true} alt="Linus on boat" objectFit="cover" priority={false}/>
+            <Image className="custom-obj-pos" src={meOnBoat} fill={true} alt="Linus on boat" objectFit="cover" priority={false} quality={100}/>
           </div>
           <div className="flex m-2 bg-dune rounded-2xl">
-            <p className="text-british-green text-[15px] p-2">I'm an ambitious and optimistic student with a passion for most things tech and problem solving. Currently learning how to leverage code in order to develop the next generation of software and engaging content at KTH, one of Europe's leading technical universities.</p>
+            <p className="text-british-green text-[15px] p-2">I&apos;m an ambitious and optimistic student with a passion for most things tech and problem solving. Currently learning how to leverage code in order to develop the next generation of software and engaging content at KTH, one of Europe&apos;s leading technical universities.</p>
           </div>
 
         </div>

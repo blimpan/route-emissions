@@ -1,4 +1,3 @@
-
 let API_KEY = "";
 try {
   API_KEY = process.env.ROUTES_API_KEY;
