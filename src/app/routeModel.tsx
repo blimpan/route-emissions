@@ -1,13 +1,4 @@
-let API_KEY = "";
-try {
-  API_KEY = process.env.ROUTES_API_KEY;
-  console.log("Successfully imported API key from Vercel environment!");
-
-} catch (error) {
-  console.error("Could not import API key from Vercel environment.")
-}
-
-console.log("All env vars: " + process.env);
+const API_KEY = process.env.NEXT_PUBLIC_ROUTES_API_KEY;
 console.log("KEY: " + API_KEY);
 
 export { API_KEY };
@@ -152,7 +143,7 @@ export const routeModel = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-Goog-Api-Key': API_KEY,
+            'X-Goog-Api-Key': process.env.NEXT_PUBLIC_ROUTES_API_KEY,
             'X-Goog-FieldMask': 'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline',
           },
           body: JSON.stringify(requestData),
