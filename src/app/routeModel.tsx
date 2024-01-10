@@ -7,7 +7,9 @@ try {
   console.error("Could not import API key from Vercel environment.")
 }
 
+console.log("All env vars: " + process.env);
 console.log("KEY: " + API_KEY);
+
 export { API_KEY };
 
 const API_URL = "https://routes.googleapis.com/directions/v2:computeRoutes";
