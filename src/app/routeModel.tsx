@@ -1,17 +1,11 @@
-// import { API_KEY } from "./mapsAPIConfig";
+
 let API_KEY = "";
 try {
-  const { LOCAL_API_KEY } = require('./mapsAPIConfig');
-  API_KEY = LOCAL_API_KEY;
-  console.log("Successfully imported API key from local file!");
+  API_KEY = process.env.ROUTES_API_KEY;
+  console.log("Successfully imported API key from Vercel environment!");
 
 } catch (error) {
-  console.log("Could not import API key locally, checking Vercel environment.")
-  try {
-    API_KEY = process.env.ROUTES_API_KEY;
-  } catch (error) {
-    console.log("Could not get API key from Vercel, we're screwed.")
-  }
+  console.error("Could not import API key from Vercel environment.")
 }
 
 export { API_KEY };
