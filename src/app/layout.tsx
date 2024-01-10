@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import NavBar from "./navbar"
 import "./styles.css"
 
